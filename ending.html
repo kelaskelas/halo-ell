@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+    body {
+      margin: 0;
+      background: black;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      font-family: sans-serif;
+    }
+
+    .container {
+      position: relative;
+    }
+
+    img {
+      width: 250px;
+      border-radius: 10px;
+      filter: brightness(0.6);
+    }
+
+    #t {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+      text-align: center;
+      font-size: 32px;
+      width: 80%;
+      text-shadow: 0 0 10px rgba(0,0,0,0.8);
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="container">
+  <img src="cat-kitten.gif" style="width: 600px;">
+  <div id="t"></div>
+</div>
+
+<script>
+const t = document.getElementById("t");
+
+const texts = [
+  "makasih ya...",
+  "udah jujur",
+  "😹"
+];
+
+let i = 0;
+
+function typeText(text, cb) {
+  let j = 0;
+  t.innerHTML = "";
+
+  const interval = setInterval(() => {
+    let char = text[j] === " " ? "&nbsp;" : text[j];
+    t.innerHTML += char;
+    j++;
+
+    if (j >= text.length) {
+      clearInterval(interval);
+      setTimeout(cb, 1200);
+    }
+  }, 40);
+}
+
+function next() {
+  if (i < texts.length) {
+    typeText(texts[i], () => {
+      i++;
+      next();
+    });
+  }
+}
+
+// start
+setTimeout(next, 1000);
+</script>
+
+</body>
+</html>
